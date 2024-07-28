@@ -36,7 +36,7 @@ export default function Profile(){
         setUser(data)
       }
       fetchAPI()
-    }, []);
+    }, [session]);
 
     const [isEditing, setIsEditing] = useState(false);
     const [user, setUser] = useState({});

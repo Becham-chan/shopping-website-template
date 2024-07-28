@@ -19,13 +19,12 @@ export const authOptions = {
         async authorize(credentials, req) {
 
             const {email, password} = credentials
-            console.log(email, password)
 
             try{
                 await connectMongoDB();
                 const user = await User.findOne({email: email})
 
-                if (!user){
+                if (user.length === 0){
                     throw Error;
                 }
                 const passwordMatch = await bcrypt.compare(password, user.password);

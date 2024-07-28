@@ -1,9 +1,16 @@
 'use client'
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 
 export default function Register(){
+    const {data: session} = useSession()
+
+    useEffect(() => {
+      if (session?.user?.email !== undefined) {router.replace("/")}
+    }, [session]);
+    
     const [user, setUser] = useState({
         firstName: '',
         lastName: '',
@@ -54,7 +61,7 @@ export default function Register(){
                   firstName, lastName, username, email, id, address, password
               }),
             })
-            if (res.status === 201){
+            if (res.status === 200){
               router.replace("/auth/login")
             }
             else if (res.status === 400){

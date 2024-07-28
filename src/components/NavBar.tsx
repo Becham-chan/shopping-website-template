@@ -24,7 +24,7 @@ function Navbar(){
                             <div className="ml-10 flex items-baseline space-x-4">
                                 <a href="/" className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">Home</a>
                                 <a href="/products" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Products</a>
-                                {session && <a href="/cart" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Cart</a>}
+                                {session?.user?.role === "Member" && <p className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium cursor-pointer" onClick={(()=>router.push("/cart"))}>Cart</p>}
                                 {!session ? 
                                     <>
                                         <Link className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" href="/auth/login">Sign in</Link>
@@ -34,15 +34,25 @@ function Navbar(){
                                     <>
                                         <Dropdown className="text-lg font-bold text-black" label="Settings" dismissOnClick={false}>
                                             <Dropdown.Item onClick={() => signOut()}>Log Out</Dropdown.Item>
-                                            <Dropdown.Item>
-                                                <Link href="/history">History</Link>
-                                            </Dropdown.Item>
-                                            <Dropdown.Item onClick={(()=>router.push("/profile"))}>
-                                                Profile
-                                            </Dropdown.Item>
+                                            { session?.user?.role === "Member" && 
+                                                <>
+                                                    <Dropdown.Item>
+                                                        <Link href="/history">History</Link>
+                                                    </Dropdown.Item>
+                                                    <Dropdown.Item onClick={(()=>router.push("/profile"))}>
+                                                        Profile
+                                                    </Dropdown.Item>
+                                                </>
+                                            }
+                                            {session?.user?.role === "Admin" && 
+                                                <Dropdown.Item onClick={(()=>router.push("/admin"))}>
+                                                    Admin
+                                                </Dropdown.Item>
+                                            }
                                         </Dropdown>
                                     </>
                                 }
+                                
                                 
                             </div>
                         </div>

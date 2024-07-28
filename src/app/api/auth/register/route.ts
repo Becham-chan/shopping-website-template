@@ -20,11 +20,11 @@ export async function POST(req: Request){
         }
 
         if (await User.findOne({id: id})){
-            throw Error ("id already exists")
+            throw Error ("Id already exists")
         }
 
         await User.create({firstname: firstName, lastname: lastName, username, email, id, address, password: cryptedPassword});
-        return NextResponse.json({message: "Successfully Added"},{status: 201})
+        return NextResponse.json({message: "Successfully Added"},{status: 200})
     }
     catch(error){
         console.error(error)

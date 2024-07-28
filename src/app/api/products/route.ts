@@ -12,6 +12,6 @@ export async function GET(req: Request){
         return NextResponse.json(response)
     }
     catch(err){
-
+        return NextResponse.json({message: "An Error Occured", err}, {status: 500})
     }
 }

@@ -10,12 +10,12 @@ export async function POST(req: Request){
         await connectMongoDB()
         console.log(email)
         const user = await User.findOne({email: email})
-        if (!user){
+        if (user.length === 0){
             throw Error ("User not found")
         }
         return NextResponse.json({user})
     }
     catch(error){
-        return NextResponse.json({error: error.message})
+        return NextResponse.json({message: "An Error Occured", error}, {status: 500})
     }
 }
