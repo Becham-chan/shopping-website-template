@@ -37,7 +37,6 @@ export default function ProductInfo(){
             const res = await fetch(`http://localhost:3000/api/products/${params.id}`)
             const result = await res.json()
             setProduct(result)
-            console.log("Lone Result:", result)
         }
         fetchAPI()
       }, []);

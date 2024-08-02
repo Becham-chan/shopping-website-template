@@ -50,7 +50,6 @@ export default function Register(){
         const formErrors = validateForm();
         if (Object.keys(formErrors).length === 0) {
           const {firstName, lastName, username, email, id, address, password} = user;
-          console.log(firstName, lastName, username, email, id, address)
           try{
             const res = await fetch('http://localhost:3000/api/auth/register', {
               method: "POST",

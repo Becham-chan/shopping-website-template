@@ -43,8 +43,6 @@ export default function AdminProductManagement() {
   
     const addProduct = async (e) => {
       e.preventDefault();
-      console.log(newProduct)
-      console.log(email)
       const res = await fetch(`http://localhost:3000/api/products/`, {
         method: "POST",
         headers: {
@@ -81,7 +79,6 @@ export default function AdminProductManagement() {
         return
       }
       setFilters(evt.target.name);
-      console.log(filters)
     }
   
     const saveEdit = async () => {

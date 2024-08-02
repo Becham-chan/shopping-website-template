@@ -64,7 +64,6 @@ export default function Home() {
               router.replace("/")
               return
             }
-            console.log(email)
             const res = await fetch(`http://localhost:3000/api/carts/${email}`)
             const result = await res.json()
             setCartItems(result)
