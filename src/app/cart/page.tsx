@@ -50,6 +50,9 @@ export default function Home() {
             alert("Successfully purchased")
             router.push('/')
           }
+          else if (res.status === 404){
+            alert("One of products in your cart has insufficient amount in stocks")
+          }
           else{
             alert("Failed to confirm purchase")
           }

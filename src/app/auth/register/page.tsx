@@ -65,20 +65,20 @@ export default function Register(){
               router.replace("/auth/login")
             }
             else if (res.status === 400){
-              alert("Email already exists")
+              setErrors({email: "Email already exists"});
             }        
             else if (res.status === 401){
-              alert("Username already exists")
+              setErrors({username: "Username already exists"});
             }    
             else if (res.status === 402){
-              alert("Id already exists")
+              setErrors({id : "Id already exists"})
             }    
             else{
               alert("Unknown error occured (500)")
             }
           }
           catch (err){
-            console.log(err);
+            alert("Unknown error occured (500)")
           }
         } else {
           setErrors(formErrors);

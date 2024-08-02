@@ -18,12 +18,12 @@ function Navbar(){
                 <div className="flex items-center justify-between h-16">
                     <div className="flex items-center">
                         <div className="flex-shrink-0">
-                            <img className="h-8 w-8" src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg" alt="Logo"/>
+                            <Link href={"/"}><img className="h-8 w-8" src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg" alt="Logo"/></Link>
                         </div>
                         <div className="hidden md:block">
                             <div className="ml-10 flex items-baseline space-x-4">
-                                <a href="/" className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">Home</a>
-                                <a href="/products" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Products</a>
+                                <Link href="/" className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">Home</Link>
+                                <Link href="/products" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Products</Link>
                                 {session?.user?.role === "Member" && <p className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium cursor-pointer" onClick={(()=>router.push("/cart"))}>Cart</p>}
                                 {!session ? 
                                     <>
@@ -33,7 +33,6 @@ function Navbar(){
                                 : 
                                     <>
                                         <Dropdown className="text-lg font-bold text-black" label="Settings" dismissOnClick={false}>
-                                            <Dropdown.Item onClick={() => signOut()}>Log Out</Dropdown.Item>
                                             { session?.user?.role === "Member" && 
                                                 <>
                                                     <Dropdown.Item>
@@ -49,6 +48,7 @@ function Navbar(){
                                                     Admin
                                                 </Dropdown.Item>
                                             }
+                                            <Dropdown.Item onClick={() => signOut()}>Log Out</Dropdown.Item>
                                         </Dropdown>
                                     </>
                                 }

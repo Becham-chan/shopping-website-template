@@ -42,18 +42,17 @@ export default function Login(){
         try{
           const user = credentials.emailOrId;
           const password = credentials.password
-          console.log(user, password)
           const res = await signIn("credentials", {
             email: user, password: password, redirect: false
           })
           if (res.error){
-            console.log("Invalid credentials")
+            alert("Invalid credentials")
             return
           }
           router.replace("/")
         }
         catch(err){
-          console.log(err)
+          alert ("An unknown error occured")
         }
       } else {
         setErrors(formErrors);

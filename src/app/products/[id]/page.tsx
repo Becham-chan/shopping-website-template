@@ -74,10 +74,18 @@ export default function ProductInfo(){
                         </div>
                     </div>
 
-                    <p className="text-gray-700 mb-6">
+                    <p className="text-gray-700 mb-6 whitespace-pre-wrap">
                         {product.description}
                     </p>
-
+                    <p className="text-gray-700 mb-6 whitespace-pre-wrap">
+                        Brand : {product.brand}
+                    </p>
+                    <p className="text-gray-700 mb-6 whitespace-pre-wrap">
+                        Producer : {product.producer}
+                    </p>
+                    <p className="text-gray-700 mb-6 whitespace-pre-wrap">
+                        In stock : {product.quantity}
+                    </p>
                     <button className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300" onClick={toCarts}>
                         Put into basket
                     </button>

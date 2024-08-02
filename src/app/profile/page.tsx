@@ -7,15 +7,14 @@ import { useRouter } from 'next/navigation'
 export default function Profile(){
     const {data: session} = useSession()
     const router = useRouter()
+    const email = session?.user?.email
 
     useEffect(() => {
       async function fetchAPI(){
-        const email = session?.user?.email
         if (email === undefined){
           router.replace("/")
           return
         }
-        console.log(email)
         const data = {}
           const res = await fetch('http://localhost:3000/api/users', {
             method: "POST",
@@ -27,13 +26,12 @@ export default function Profile(){
             }),
         })
         const result = await res.json()
-        console.log(result)
-        data.id = result.user.id
+        data.id = result.user._id
         data.username = result.user.username
         data.email = email
         data.address = result.user.address
-        console.log(data)
         setUser(data)
+        setEditedUser(data)
       }
       fetchAPI()
     }, [session]);
@@ -41,16 +39,6 @@ export default function Profile(){
     const [isEditing, setIsEditing] = useState(false);
     const [user, setUser] = useState({});
 
-    // console.log(session?.user?.email)
-    // const userData = await fetch('http://localhost:3000/api/auth/register', {
-    //     method: "POST",
-    //     headers: {
-    //         "Content-Type": "application.json"
-    //     },
-    //     body: JSON.stringify ({
-    //         firstName, lastName, username, email, id, address, password
-    //     }),
-    // })
 
     const [editedUser, setEditedUser] = useState({ ...user });
 
@@ -59,16 +47,30 @@ export default function Profile(){
       setEditedUser(prev => ({ ...prev, [name]: value }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
       e.preventDefault();
-      setUser(editedUser);
-      setIsEditing(false);
+      const res = await fetch(`http://localhost:3000/api/users`,
+        {method: "PUT",
+          headers: {
+              "Content-Type": "application.json"
+          },
+          body: JSON.stringify ({
+              username: editedUser.username, oldEmail: email ,newEmail: editedUser.email, address: editedUser.address,
+          }),
+        }
+      )
+      if (res.status === 200){
+        alert("User updated successfully")
+        setUser(editedUser);
+        setIsEditing(false);
+        return
+      }
+      alert("User updated failed")
     };
 
-    console.log(session)
 
     return (
-      <div className="container mx-auto p-6 max-w-2xl">
+      <div className="container mx-auto p-6 max-w-2xl my-20">
         <h1 className="text-3xl font-bold mb-6">User Profile</h1>
         
         <div className="bg-white shadow-md rounded-lg overflow-hidden">
